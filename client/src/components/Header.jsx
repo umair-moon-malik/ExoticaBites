@@ -1,9 +1,10 @@
 import React from "react";
+import { useAuth } from "../utils/AuthContext.jsx";
 import { Link } from "react-router-dom";
-import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 
 const Header = () => {
-  const { isSignedIn, user } = useUser();
+  const { currentUser, isAuthenticated } = useAuth();
+  const displayName = isAuthenticated ? currentUser : <div>Login / Signup</div>;
 
   return (
     <div className="Header w-full h-[12vh] bg-primary text-textColor flex flex-row items-center justify-between fixed z-50">
@@ -14,31 +15,24 @@ const Header = () => {
         <ul className="list-none flex flex-row gap-8 items-center">
           <Link to={"/"}>Home</Link>
           <Link to={"/order"}>Order</Link>
-          {isSignedIn ? (
-            <div className="flex items-center group p-2 border-[1.5px] rounded-full text-textColor bg-secondary transition  h-full">
-              <UserButton showName="true" />
-            </div>
-          ) : (
-            <div>
-              <Link
-                to="/sign-in"
-                className="group p-3 border-[1.5px] rounded-full text-textColor bg-secondary hover:bg-textColor hover:text-primary flex items-center transition w-full h-full"
-                id="header-links"
-              >
-                <svg
-                  className="text-textColor group-hover:text-primary"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="20px"
-                  viewBox="0 -960 960 960"
-                  width="20px"
-                  fill="currentColor"
-                >
-                  <path d="M490-480 301-669l83-83 272 272-272 272-83-83 189-189Z" />
-                </svg>
-                <span className="ml-1">Login / Signup</span>
-              </Link>
-            </div>
-          )}
+
+          <Link
+            to="/login"
+            className="group p-3 border-[1.5px] rounded-full text-textColor bg-secondary hover:bg-textColor hover:text-primary flex items-center transition w-full h-full"
+            id="header-links"
+          >
+            <svg
+              className="text-textColor group-hover:text-primary"
+              xmlns="http://www.w3.org/2000/svg"
+              height="20px"
+              viewBox="0 -960 960 960"
+              width="20px"
+              fill="currentColor"
+            >
+              <path d="M490-480 301-669l83-83 272 272-272 272-83-83 189-189Z" />
+            </svg>
+            <span className="ml-1">{displayName}</span>
+          </Link>
         </ul>
       </div>
     </div>

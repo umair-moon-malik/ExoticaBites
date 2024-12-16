@@ -1,8 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
-
 
 const Homepage = () => {
   return (
@@ -28,21 +26,18 @@ const Homepage = () => {
             memorable experiences. Whether it's a small gathering or a grand
             celebration, our caterers offer the best in food and service.
           </p>
-          <SignedOut>
-            <Link to={"/sign-in"}>
-              <div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="font-sora text-xl bg-textColor w-fit text-primary font-black p-4 pl-8 pr-8 rounded-full"
-                >
-                  Sign in
-                </motion.button>
-              </div>
-            </Link>
-          </SignedOut>
-          <SignedIn>
-          </SignedIn>
+
+          <Link to={"/login"}>
+            <div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="font-sora text-xl bg-textColor w-fit text-primary font-black p-4 pl-8 pr-8 rounded-full"
+              >
+                Sign in
+              </motion.button>
+            </div>
+          </Link>
         </motion.div>
 
         <motion.div
@@ -59,10 +54,7 @@ const Homepage = () => {
           /> */}
         </motion.div>
       </div>
-      
     </section>
-
-    
   );
 };
 
