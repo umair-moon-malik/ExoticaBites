@@ -1,8 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext.jsx";
 
 const Homepage = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
     <section className=" min-h-screen flex items-center justify-center overflow-hidden bg-primary">
       <div className="glow top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
@@ -27,17 +30,45 @@ const Homepage = () => {
             celebration, our caterers offer the best in food and service.
           </p>
 
-          <Link to={"/login"}>
-            <div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="font-sora text-xl bg-textColor w-fit text-primary font-black p-4 pl-8 pr-8 rounded-full"
-              >
-                Sign in
-              </motion.button>
+          {isAuthenticated ? (
+            <div className="flex gap-4">
+              {" "}
+              <Link to={"/order"}>
+                <div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="font-sora text-xl bg-textColor w-fit text-primary font-black p-4 pl-8 pr-8 rounded-full"
+                  >
+                    Try Something New
+                  </motion.button>
+                </div>
+              </Link>
+              <Link to={"/myOrders"}>
+                <div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="font-sora text-xl bg-textColor w-fit text-primary font-black p-4 pl-8 pr-8 rounded-full"
+                  >
+                    My Orders
+                  </motion.button>
+                </div>
+              </Link>
             </div>
-          </Link>
+          ) : (
+            <Link to={"/login"}>
+              <div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="font-sora text-xl bg-textColor w-fit text-primary font-black p-4 pl-8 pr-8 rounded-full"
+                >
+                  Sign in
+                </motion.button>
+              </div>
+            </Link>
+          )}
         </motion.div>
 
         <motion.div

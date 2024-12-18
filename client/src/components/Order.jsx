@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate, Link } from "react-router-dom";
 
 const caterers = {
   "Mayuri Caterers": {
@@ -108,11 +109,15 @@ const caterers = {
 
 const Order = () => {
   const [selectedCaterer, setSelectedCaterer] = useState("Mayuri Caterers");
+  const navigate = useNavigate();
 
   const catererMenu = caterers[selectedCaterer].dishes;
 
   return (
-    <section className="py-12 bg-primary flex flex-col items-center relative top-[12vh]">
+    <section className="py-2 bg-primary flex flex-col items-center relative top-[12vh]">
+      <div className="min-w-full flex justify-end">
+        <Link to="/myOrders" className="p-4 px-16 bg-textColor text-black rounded-xl mb-4 text-md mr-16 font-bold">My Orders</Link>
+      </div>
       <div className="">
         <div className="container mx-auto px-6 flex flex-col items-center">
           <h1 className="text-center text-3xl font-bold text-textColor mb-6">
@@ -133,11 +138,8 @@ const Order = () => {
                 {caterer}
               </motion.button>
             ))}
-            
           </div>
-            <h1 className="text-3xl m-8 font-black">
-                {selectedCaterer}
-            </h1>
+          <h1 className="text-3xl m-8 font-black">{selectedCaterer}</h1>
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-6"
             initial={{ opacity: 0 }}
@@ -151,13 +153,23 @@ const Order = () => {
                 initial={{ opacity: 0, y: 200 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2 }}
-                
               >
                 <h2 className="text-lg font-semibold text-white mb-2">
                   {item.name}
                 </h2>
                 <p className="text-textColor mb-4">Price: ₹{item.price}</p>
-                <button className="px-4 py-2 bg-white text-black font-bold hover:bg-gray-200 rounded-full">
+                <button
+                  className="px-4 py-2 bg-white text-black font-bold hover:bg-gray-200 rounded-full"
+                  onClick={() =>
+                    navigate("/purchase", {
+                      state: {
+                        name: item.name,
+                        price: item.price,
+                        selectedCaterer: selectedCaterer,
+                      },
+                    })
+                  }
+                >
                   Try Now
                 </button>
               </motion.div>

@@ -8,12 +8,10 @@ router.post("/signup", async (req, res) => {
 
   const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
-    return res
-      .status(400)
-      .json({
-        message:
-          "email or username already taken. please use different email or username",
-      });
+    return res.status(400).json({
+      message:
+        "email or username already taken. please use different email or username",
+    });
   }
 
   try {
@@ -80,6 +78,12 @@ router.post("/signin", async (req, res) => {
     console.log("Token generated: ", token);
     res
       .cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+        path: "/",
+        maxAge: 3600000,
+      })
+      .cookie("username", user._id, {
         httpOnly: true,
         secure: false,
         path: "/",

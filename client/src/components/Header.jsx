@@ -7,7 +7,7 @@ const Header = () => {
   const displayName = isAuthenticated ? currentUser : <div>Login / Signup</div>;
 
   return (
-    <div className="Header w-full h-[12vh] bg-primary text-textColor flex flex-row items-center justify-between fixed z-50">
+    <div className="Header w-full h-[12vh]  backdrop-blur-lg text-textColor flex flex-row items-center justify-between fixed z-50">
       <div className="Logo text-3xl ml-8 font-black">
         <Link to={"/"}>Exotica Bites</Link>
       </div>

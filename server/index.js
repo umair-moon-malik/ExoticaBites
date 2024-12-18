@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db.js");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.js");
+const purchaseRoute = require('./routes/purchase.js')
 const cors = require("cors");
 require("dotenv").config();
 
@@ -22,11 +23,12 @@ const main = async () => {
     await connectDB();
     console.log("Starting server...");
     app.use("/api/auth", authRoutes);
+    app.use('/api/purchase' , purchaseRoute)
   } catch (error) {
     console.error("Error starting server:", error);
   }
   app.listen(7000, () => {
-    console.log("listening");
+    console.log("listening on 7000");
   });
 };
 
